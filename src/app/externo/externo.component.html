@@ -1,0 +1,48 @@
+{{fecha | date:'fullDate'}}<br>
+{{fecha | date:'dd/MM/yy' | uppercase }} <br>
+{{ 'HOLA MUNDO USANDO PIPES' | lowercase }} <br>
+{{ 4 | calculadora: 2}}
+
+
+<hr>
+<input type="text" [(ngModel)]="userId" (keyup.enter)="cargaUsuario()">
+
+<div *ngIf="!user">
+    Cargando...
+</div>
+
+<div *ngIf="user">
+    <img src="{{user.avatar}}" width="200px">
+    <h2>{{user.first_name + user.last_name}}</h2>
+</div>
+
+<hr>
+
+<h2>Crear Usuario</h2>
+<form #newUser="ngForm" (ngSubmit)="onSubmit(newUser)">
+ 
+    <tr>
+        <td><label for="nombre">Nombre</label></td>
+        <td>
+            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="new_user.name" required pattern="[a-zA-Z]+"/>
+            <span class="textred" *ngIf="nombre.touched && !nombre.valid"> El nombre es obligatorio</span>
+        </td>
+    </tr>
+    <tr>
+        <td><label for="trabajo">Trabajo</label></td>
+        <td>
+            <input type="text" name="trabajo" #trabajo="ngModel" [(ngModel)]="new_user.job" required pattern="[a-zA-Z]+"/>
+            <span class="textred" *ngIf="trabajo.touched && !trabajo.valid"> El nombre es obligatorio</span>
+        </td>
+    </tr>
+    <tr>
+        <input type="submit" value="Registrar" [disabled]="newUser.form.invalid">
+    </tr>
+ 
+</form>
+
+<div *ngIf="usuario_guardado">
+    <h2>El usuario se ha guardado correctamente</h2>
+    <h3>{{usuario_guardado.name}}</h3>
+    <h4>{{usuario_guardado.job}}</h4>
+</div>
